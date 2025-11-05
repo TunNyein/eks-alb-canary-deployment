@@ -2,7 +2,7 @@
 # EKS Security Groups
 #------------------------------------------------------------------------------
 
-                                                                         # Control Plane Security Group                             
+                                                                     # Control Plane Security Group                             
 resource "aws_security_group" "eks_cluster_sg" {
   name        = "${var.vpc_prefix}-eks-cluster-sg"
   description = "EKS control plane security group"
@@ -32,7 +32,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_nodes_to_controlplane" {
 }
 
 
-                                                                        # Node Security Group
+                                                                     # Node Security Group
 resource "aws_security_group" "eks_node_sg" {
   name        = "${var.vpc_prefix}-eks-node-sg"
   description = "EKS worker node security group"
