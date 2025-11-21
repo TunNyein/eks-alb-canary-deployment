@@ -49,36 +49,3 @@ resource "aws_eks_addon" "kube_proxy" {
     aws_eks_node_group.eks_nodes
   ]
 }
-
-# # -----------------------------------------
-# # Metrics Server Add-on (AWS managed)
-# # -----------------------------------------
-# resource "aws_eks_addon" "metrics_server" {
-#   cluster_name      = aws_eks_cluster.eks.name
-#   addon_name        = "eks-metrics-server"
-  
-  
-#   resolve_conflicts_on_create = "OVERWRITE"
-#   resolve_conflicts_on_update = "OVERWRITE"
-
-#   depends_on = [
-#     aws_eks_node_group.eks_nodes
-#   ]
-# }
-
-
-# # -----------------------------------------
-# # Pody Add-on pod_identity_agent
-# # -----------------------------------------
-# resource "aws_eks_addon" "eks_pod_identity_agent" {
-#   cluster_name      = aws_eks_cluster.eks.name
-#   addon_name        = "eks-pod-identity-agent"
-  
- 
-#   resolve_conflicts_on_create = "OVERWRITE"
-#   resolve_conflicts_on_update = "OVERWRITE"
-
-#   depends_on = [
-#     aws_eks_node_group.eks_nodes
-#   ]
-# }

@@ -57,29 +57,37 @@ kubectl apply -f external-svc.yaml
 kubectl apply -f bokinfo-ingress.yaml
 
 
-### Install AWS Load Balancer Controller
+# Install AWS Load Balancer Controller
 
-IAM OIDC provider (if not already created):
+### installation guide : https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/installation/
+
+1. Create an IAM OIDC provider.
 
 eksctl utils associate-iam-oidc-provider --cluster eks-cluster --approve --profile eks-admin
 
 
-Create IAM policy for the controller:
+2. Create IAM policy for the controller:
 
 curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
+
+3. Create an IAM policy named AWSLoadBalancerControllerIAMPolicy.
 
 aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam-policy.json --profile eks-admin
 
 
-Create IAM service account for the controller:
+4. Create an IAM role and Kubernetes ServiceAccount for the LBC.
 
-eksctl create iamserviceaccount --cluster eks-cluster --namespace kube-system --name aws-load-balancer-controller --attach-policy-arn arn:aws:iam::767397836388:policy/AWSLoadBalancerControllerIAMPolicy --approve --profile eks-admin
+eksctl create iamserviceaccount --cluster eks-cluster --namespace kube-system --name aws-load-balancer-controller --attach-policy-arn arn:aws:iam::<account-id>:policy/AWSLoadBalancerControllerIAMPolicy --approve
 
+# Detailed instructions¶
+Follow the instructions in the aws-load-balancer-controller Helm chart.
 
-Install the controller using Helm:
+1. Add the EKS chart repo to Helm
 
 helm repo add eks https://aws.github.io/eks-charts
 helm repo update
+
+2. Helm install command for clusters with IRSA:
 
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   -n kube-system \
@@ -87,19 +95,15 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.create=false \
   --set serviceAccount.name=aws-load-balancer-controller \
   --set region=ap-southeast-1 \
-  --set vpcId=vpc-01b870407d8415ffc
+  --set vpcId=<vpc-id>
+
+3. Verify  Controller
+- kubectl get deployment -n kube-system aws-load-balancer-controller
+- kubectl get pods -n kube-system -l app.kubernetes.io/name=aws-load-balancer-controller
 
 ############################3
 
-  kubectl logs -n kube-system -l app.kubernetes.io/name=aws-load-balancer-controller
-
-
-  for i in {1..20}; do curl -s http://<ALB_DNS> | grep "version"; done
-
-for i in {1..30}; do 
-  curl -s bookinfo.tunlab.xyz | grep -E "v1|v2"
-done
-
+  
 
 # Apply gree-bookinfo.yaml 
 

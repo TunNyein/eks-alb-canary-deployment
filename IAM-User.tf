@@ -43,3 +43,12 @@ resource "aws_iam_user_policy_attachment" "junior_iam_attach" {
   user       = aws_iam_user.junior_ops_engineer.name
   policy_arn = aws_iam_policy.eks_describe.arn
 }
+
+# # ACCESS KEYS (destroy works)
+# resource "aws_iam_access_key" "lead_access_key" {
+#   user = aws_iam_user.lead_ops_engineer.name
+# }
+
+# resource "aws_iam_access_key" "junior_access_key" {
+#   user = aws_iam_user.junior_ops_engineer.name
+# }
