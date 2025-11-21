@@ -12,7 +12,7 @@ https://app.datadoghq.com/fleet/install-agent/latest?platform=kubernetes&_gl=1*x
 # Apply Datadog agent yaml 
 
 
-# update kubeconfig for eks admin
+### update kubeconfig for eks admin
 
 aws eks update-kubeconfig --region ap-southeast-1 --name eks-cluster --alias eks-admin --profile eks-admin
 
@@ -103,7 +103,15 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
 
 ############################3
 
-  
+  kubectl logs -n kube-system -l app.kubernetes.io/name=aws-load-balancer-controller
+
+
+  for i in {1..20}; do curl -s http://<ALB_DNS> | grep "version"; done
+
+for i in {1..30}; do 
+  curl -s bookinfo.tunlab.xyz | grep -E "v1|v2"
+done
+
 
 # Apply gree-bookinfo.yaml 
 

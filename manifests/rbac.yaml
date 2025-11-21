@@ -1,0 +1,107 @@
+################################################################
+# Productpage Lead Role & Binding
+################################################################
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: productpage-lead-role
+  namespace: productpage
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: productpage-lead-binding
+  namespace: productpage
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: productpage-lead-role
+subjects:
+- kind: Group
+  name: lead-ops-group
+  apiGroup: rbac.authorization.k8s.io
+---
+################################################################
+# Details Lead Role & Binding
+################################################################
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: details-lead-role
+  namespace: details
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: details-lead-binding
+  namespace: details
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: details-lead-role
+subjects:
+- kind: Group
+  name: lead-ops-group
+  apiGroup: rbac.authorization.k8s.io
+---
+################################################################
+# Reviews Lead Role & Binding
+################################################################
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: reviews-lead-role
+  namespace: reviews
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: reviews-lead-binding
+  namespace: reviews
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: reviews-lead-role
+subjects:
+- kind: Group
+  name: lead-ops-group
+  apiGroup: rbac.authorization.k8s.io
+---
+################################################################
+# Ratings Lead Role & Binding
+################################################################
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ratings-lead-role
+  namespace: ratings
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ratings-lead-binding
+  namespace: ratings
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ratings-lead-role
+subjects:
+- kind: Group
+  name: lead-ops-group
+  apiGroup: rbac.authorization.k8s.io

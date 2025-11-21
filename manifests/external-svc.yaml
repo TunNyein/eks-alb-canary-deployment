@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: details
+  namespace: productpage
+spec:
+  type: ExternalName
+  externalName: details.details.svc.cluster.local 
+  ports:
+    - port: 9080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reviews
+  namespace: productpage
+spec:
+  type: ExternalName
+  externalName: reviews.reviews.svc.cluster.local
+  ports:
+    - port: 9080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ratings
+  namespace: reviews
+spec:
+  type: ExternalName
+  externalName: ratings.ratings.svc.cluster.local
+  ports:
+    - port: 9080
+
