@@ -23,8 +23,7 @@ The project includes:
 
 
 
-A complete operational workflow is documented in:
-📘 eks-blue-greee-runbook.md
+A complete operational workflow is documented in: 📘 eks-blue-greee-runbook.md
 
 ## Architecture
 ![alt text](assets/architecture.png)
