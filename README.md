@@ -67,4 +67,4 @@ A complete operational workflow is documented in: 📘 eks-blue-greee-runbook.md
 
 ```
 
-Follow the Runbook: 📘 eks-blue-greee-runbook.md
+👉 Follow the Runbook: 📘 eks-blue-greee-runbook.md
