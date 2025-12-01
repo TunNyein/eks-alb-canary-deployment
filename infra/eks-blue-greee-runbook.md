@@ -17,7 +17,7 @@ Quick checklist (high level)
 - apply ingress and verify ALB + DNS
 - perform weighted traffic shift and validate
 
-1) Provision infrastructure (Terraform)
+### 1) Provision infrastructure (Terraform)
 
 ```bash
 
