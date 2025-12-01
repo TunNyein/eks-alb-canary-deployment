@@ -17,7 +17,7 @@ Quick checklist (high level)
 - apply ingress and verify ALB + DNS
 - perform weighted traffic shift and validate
 
-### 1) Provision infrastructure (Terraform)
+#### 1) Provision infrastructure (Terraform)
 
 ```bash
 
@@ -26,7 +26,7 @@ terraform init
 terraform apply --auto-approve
 ```
 
-2) Update kubeconfig(s)
+#### 2) Update kubeconfig(s)
 
 ```bash
 # for Blue
@@ -40,7 +40,7 @@ Verify contexts:
 ```bash
 kubectl config get-contexts
 ```
-3) Verify cluster access
+#### 3) Verify cluster access
 
 ```bash
 # Check nodes and system pods
@@ -50,7 +50,7 @@ kubectl get all -n kube-system --context=eks-blue-cluster
 kubectl get nodes --context=eks-green-cluster
 kubectl get all -n kube-system --context=eks-green-cluster
 ```
-4) Namespaces and RBAC
+#### 4) Namespaces and RBAC
 
 ```bash
 # Create namespaces used by Bookinfo (run for each cluster/context)
@@ -71,7 +71,7 @@ kubectl apply -f ../../manifests/rbac.yaml --context=eks-blue-cluster
 kubectl apply -f ../../manifests/rbac.yaml --context=eks-green-cluster
 
 ```
-5) Deploy Blue and Green application manifests
+#### 5) Deploy Blue and Green application manifests
 
 ```bash
 # Deploy Blue version to Blue cluster
@@ -85,7 +85,7 @@ kubectl apply -f ../../manifests/external-svc.yaml -n productpage --context=eks-
 kubectl apply -f ../../manifests/external-svc.yaml -n productpage --context=eks-green-cluster
 ```
 
-6) Install AWS Load Balancer Controller (ALB) with IRSA (per cluster)
+#### 6) Install AWS Load Balancer Controller (ALB) with IRSA (per cluster)
 [Official Doc:](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/installation/)
 
 High level steps:
@@ -154,7 +154,7 @@ kubectl get deployment -n kube-system aws-load-balancer-controller --context=eks
 kubectl get pods -n kube-system -l app.kubernetes.io/name=aws-load-balancer-controller --context=eks-blue-cluster
 ```
 
-7) Install ExternalDNS (per cluster)
+#### 7) Install ExternalDNS (per cluster)
 
 Create minimal ExternalDNS policy (in manifests/external-dns-policy.json) and create IAM policy in AWS if not already created.
 
@@ -203,7 +203,7 @@ Verify:
 kubectl get deployment -n kube-system external-dns --context=eks-blue-cluster
 kubectl logs -n kube-system deployment/external-dns --context=eks-blue-cluster
 ```
-8) Apply Ingress & Configure DNS
+#### 8) Apply Ingress & Configure DNS
 
 ```bash
 # Apply Ingress (per cluster) - manifests in repo
@@ -218,7 +218,7 @@ kubectl get ingress -n productpage --context=eks-green-cluster -o wide
 aws route53 list-resource-record-sets --hosted-zone-id <HOSTED_ZONE_ID> --profile eks-admin | jq '.'
 ```
 
-9) Traffic shifting (weighted routing)
+#### 9) Traffic shifting (weighted routing)
 
 This repository uses ExternalDNS annotations for weighting traffic between blue/green. Example annotation format on the ingress resource:
 
