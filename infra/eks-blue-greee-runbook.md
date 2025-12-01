@@ -1,6 +1,6 @@
 # EKS Setup & Blue/Green Deployment Runbook
 
-This Runbook provides a step-by-step guide from setting up an EKS Cluster with Terraform to configuring the AWS Load Balancer Controller (ALB), deploying Bookinfo microservices (Blue/Green), and setting up Datadog Monitoring.
+This runbook documents an operational, step-by-step procedure to provision EKS infrastructure, install required cluster controllers (ALB controller, ExternalDNS), deploy Bookinfo Blue/Green applications, and perform traffic shifting with Route 53.
 
 ## 1. EKS Cluster Creation (Terraform)
 
